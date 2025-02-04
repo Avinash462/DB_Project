@@ -1,0 +1,9 @@
+Order_ID,Customer_ID,Restaurant_ID,Order_Status,Order_Date
+301,101,201,Delivered,2025-01-30 19:30:00
+302,102,202,Out for Delivery,2025-01-30 20:00:00
+303,103,203,Preparing,2025-01-30 20:10:00
+304,104,204,Cancelled,2025-01-29 18:15:00
+305,105,205,Delivered,2025-01-29 21:45:00
+306,106,206,Preparing,2025-01-28 19:00:00
+307,107,207,Out for Delivery,2025-01-28 20:30:00
+308,108,208,Delivered,2025-01-27 18:50:00

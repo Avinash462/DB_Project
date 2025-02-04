@@ -1,0 +1,9 @@
+Customer_ID,First_Name,Last_Name,Phone_Number,Email,Address,City,Zip_Code
+101,Rajesh,Sharma,9876543210,rajesh.sharma@gmail.com,"12, MG Road",Bengaluru,560001
+102,Priya,Iyer,9823456789,priya.iyer@yahoo.com,"45, Juhu Beach",Mumbai,400049
+103,Amit,Verma,9865472310,amit.verma@outlook.com,"78, Park Street",Kolkata,700091
+104,Neha,Singh,9812345678,neha.singh@gmail.com,"67, Salt Lake",Kolkata,700091
+105,Vikram,Patel,9954321876,vikram.patel@hotmail.com,"23, Andheri West",Mumbai,400058
+106,Sunita,Gupta,9876512345,sunita.gupta@gmail.com,"56, Electronic City",Bengaluru,560100
+107,Ankit,Chopra,9765432198,ankit.chopra@yahoo.com,"90, Banjara Hills",Hyderabad,500034
+108,Pooja,Reddy,9856473210,pooja.reddy@gmail.com,"34, Shivaji Nagar",Pune,411005

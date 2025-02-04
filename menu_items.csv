@@ -1,0 +1,9 @@
+Menu_Item_ID,Restaurant_ID,Name,Price,Availability
+401,201,Butter Chicken,350,Available
+402,201,Paneer Tikka,280,Available
+403,202,Masala Dosa,120,Available
+404,202,Idli Sambar,90,Available
+405,203,Hyderabadi Biryani,300,Available
+406,203,Chicken 65,250,Available
+407,204,Pav Bhaji,150,Available
+408,204,Vada Pav,60,Available

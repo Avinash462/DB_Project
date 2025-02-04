@@ -1,0 +1,58 @@
+[
+    {
+        "Restaurant_ID": 201,
+        "Name": "Tandoori Nights",
+        "Cuisine": "North Indian",
+        "Location": "Delhi",
+        "Rating": 4.5
+    },
+    {
+        "Restaurant_ID": 202,
+        "Name": "Dosa Delights",
+        "Cuisine": "South Indian",
+        "Location": "Bengaluru",
+        "Rating": 4.7
+    },
+    {
+        "Restaurant_ID": 203,
+        "Name": "Biryani House",
+        "Cuisine": "Hyderabadi",
+        "Location": "Hyderabad",
+        "Rating": 4.6
+    },
+    {
+        "Restaurant_ID": 204,
+        "Name": "Mumbai Tadka",
+        "Cuisine": "Maharashtrian",
+        "Location": "Mumbai",
+        "Rating": 4.4
+    },
+    {
+        "Restaurant_ID": 205,
+        "Name": "Kolkata Roll Hub",
+        "Cuisine": "Bengali",
+        "Location": "Kolkata",
+        "Rating": 4.3
+    },
+    {
+        "Restaurant_ID": 206,
+        "Name": "Chennai Spice",
+        "Cuisine": "Chettinad",
+        "Location": "Chennai",
+        "Rating": 4.8
+    },
+    {
+        "Restaurant_ID": 207,
+        "Name": "Gujarati Rasoi",
+        "Cuisine": "Gujarati",
+        "Location": "Ahmedabad",
+        "Rating": 4.6
+    },
+    {
+        "Restaurant_ID": 208,
+        "Name": "Rajasthan Royal",
+        "Cuisine": "Rajasthani",
+        "Location": "Jaipur",
+        "Rating": 4.5
+    }
+]

@@ -1,0 +1,31 @@
+Total Orders Per Customer
+Customer_ID | First_Name | Last_Name | Total_Orders
+------------------------------------------------------------
+4 | Neha | Patel | 1
+1 | Rahul | Sharma | 1
+3 | Vikram | Rao | 0
+6 | Rohan | Joshi | 0
+7 | Amit | Sharma | 0
+8 | Priya | Verma | 0
+9 | Rohan | Kumar | 0
+10 | Neha | Singh | 0
+
+
+Most Ordered Menu Items
+Menu_Item | Restaurant | Times_Ordered
+------------------------------------------------------------
+Sarson da Saag with Makki Roti | The Great Punjab | 1
+
+
+Revenue Generated Per Restaurant
+Restaurant_ID | Restaurant_Name | Total_Revenue
+------------------------------------------------------------
+4 | The Great Punjab | $500.00
+5 | Rajasthani Rasoi | $0.00
+6 | Biryani House | $0.00
+7 | The Spice Room | $0.00
+8 | Mumbai Tandoori | $0.00
+9 | Bangalore Dosa Corner | $0.00
+1 | Biryani Paradise | $0.00
+2 | Spice Garden | $0.00
+3 | Dakshin Delights | $0.00

@@ -1,0 +1,83 @@
+-- Insert a new customer into the Customers table
+INSERT INTO Customers (First_Name, Last_Name, Email, Address, Phone_Number, City)
+VALUES ('Rohan', 'Joshi', 'rohan.joshi@example.com', '305 MG Road, Pune', '9876543120', 'Pune');
+
+-- Insert a new menu item into the Menu_Items table
+INSERT INTO Menu_Items (Restaurant_ID, Name, Price, Availability)
+VALUES (2, 'Chole Bhature', 150.00, 'Available');
+
+
+------------------------------------------------------------------------------
+
+-- Update a customer's phone number
+UPDATE Customers
+SET Phone_Number = '9998887776'
+WHERE Email = 'rahul.sharma@example.com';
+
+-- Update order status for a completed order
+UPDATE Orders
+SET Order_Status = 'Completed'
+WHERE Order_ID = 2;
+
+-------------------------------------------------------------------------------
+
+-- Delete a customer who no longer uses the service
+DELETE FROM Customers
+WHERE Email = 'amit.verma@example.com';
+
+---------------------------------------------------------------------------------
+
+-- Select specific columns from the Customers table for customers in Bangalore
+SELECT Customer_ID, First_Name, Last_Name, Phone_Number
+FROM Customers
+WHERE City = 'Bangalore';
+
+-------------------------------------------------------------------------------
+
+-- Use INNER JOIN to show only customers who have placed orders
+SELECT C.Customer_ID, C.First_Name, C.Last_Name, O.Order_ID, O.Order_Status, O.Order_Date
+FROM Customers C
+INNER JOIN Orders O ON C.Customer_ID = O.Customer_ID;
+
+-- Use LEFT JOIN to show all orders, even those without an assigned delivery person
+SELECT O.Order_ID, O.Order_Status, D.Name AS Delivery_Person, D.Phone_Number
+FROM Orders O
+LEFT JOIN Delivery_Personal D ON O.Delivery_ID = D.Delivery_ID;
+
+-- Use RIGHT JOIN to show all delivery personnel and the orders they handled (if any)
+SELECT D.Delivery_ID, D.Name, O.Order_ID, O.Order_Status
+FROM Orders O
+RIGHT JOIN Delivery_Personal D ON O.Delivery_ID = D.Delivery_ID;
+
+-------------------------------------------------------------------------------
+
+-- Get the total number of orders placed
+SELECT COUNT(Order_ID) AS Total_Orders FROM Orders;
+
+-- Get the average order amount from the Payments table
+SELECT AVG(Amount) AS Average_Order_Amount FROM Payments;
+
+-------------------------------------------------------------------------------
+
+-- Show customer details, their orders, and the ordered menu items with quantity
+SELECT C.First_Name, C.Last_Name, O.Order_ID, M.Name AS Menu_Item, OI.Quantity
+FROM Customers C
+JOIN Orders O ON C.Customer_ID = O.Customer_ID
+JOIN Order_Items OI ON O.Order_ID = OI.Order_ID
+JOIN Menu_Items M ON OI.Menu_Item_ID = M.Menu_Item_ID;
+
+-------------------------------------------------------------------------------
+
+-- Find the top-rated restaurants with an average rating greater than 4.5
+SELECT R.Name AS Restaurant_Name, AVG(RR.Rating) AS Avg_Rating
+FROM Restaurants R
+JOIN Reviews_Ratings RR ON R.Restaurant_ID = RR.Restaurant_ID
+GROUP BY R.Name
+HAVING AVG(RR.Rating) > 4.5;
+
+
+
+
+
+
+

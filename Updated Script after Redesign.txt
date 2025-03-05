@@ -1,0 +1,205 @@
+
+-- Customers Table
+CREATE TABLE Customers (
+    Customer_ID INT PRIMARY KEY IDENTITY(1,1),
+    First_Name VARCHAR(50) NOT NULL,
+    Last_Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) UNIQUE NOT NULL,
+    Address VARCHAR(255) NOT NULL,
+    Phone_Number VARCHAR(15) UNIQUE NOT NULL,
+    City VARCHAR(20) NOT NULL
+);
+
+-- Restaurants Table
+CREATE TABLE Restaurants (
+    Restaurant_ID INT PRIMARY KEY IDENTITY(1,1),
+    Name VARCHAR(70) NOT NULL,
+    Cuisine VARCHAR(50) NOT NULL,
+    Location VARCHAR(255) NOT NULL,
+    Rating DECIMAL(2,1) CHECK (Rating BETWEEN 0 AND 5) -- Rating between 0 to 5
+);
+
+-- Menu Items Table
+CREATE TABLE Menu_Items (
+    Menu_Item_ID INT PRIMARY KEY IDENTITY(1,1),
+    Restaurant_ID INT NOT NULL,
+    Name VARCHAR(50) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL CHECK (Price >= 0), -- Price cannot be negative
+    Availability VARCHAR(15) NOT NULL CHECK (Availability IN ('Available', 'Not Available')),
+    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurants(Restaurant_ID) ON DELETE CASCADE
+);
+
+-- Delivery Personnel Table
+CREATE TABLE Delivery_Personal (
+    Delivery_ID INT PRIMARY KEY IDENTITY(1,1),
+    Name VARCHAR(50) NOT NULL,
+    Phone_Number VARCHAR(15) UNIQUE NOT NULL,
+    Vehicle_Type VARCHAR(20) NOT NULL
+);
+
+-- Orders Table
+CREATE TABLE Orders (
+    Order_ID INT PRIMARY KEY IDENTITY(1,1),
+    Customer_ID INT NOT NULL,
+    Order_Date DATETIME DEFAULT GETDATE(),
+    Order_Status VARCHAR(15) NOT NULL CHECK (Order_Status IN ('Pending', 'Completed', 'Cancelled')),
+    Delivery_ID INT NULL, 
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Delivery_ID) REFERENCES Delivery_Personal(Delivery_ID) ON DELETE SET NULL
+);
+
+
+-- Order Items Table
+CREATE TABLE Order_Items (
+    Order_Item_ID INT PRIMARY KEY IDENTITY(1,1),
+    Order_ID INT NOT NULL,
+    Menu_Item_ID INT NOT NULL,
+    Quantity INT NOT NULL CHECK (Quantity > 0), -- Quantity must be positive
+    FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Menu_Item_ID) REFERENCES Menu_Items(Menu_Item_ID) ON DELETE CASCADE
+);
+
+-- Payment Method Table
+CREATE TABLE Payment_Method (
+    Payment_Method_ID INT PRIMARY KEY IDENTITY(1,1),
+    Payment_Method VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Payments Table
+CREATE TABLE Payments (
+    Payment_ID INT PRIMARY KEY IDENTITY(1,1),
+    Order_ID INT NOT NULL,
+    Payment_Method_ID INT NOT NULL,
+    Amount DECIMAL(10,2) NOT NULL CHECK (Amount >= 0), -- Amount cannot be negative
+    Status VARCHAR(15) NOT NULL CHECK (Status IN ('Pending', 'Completed', 'Failed')),
+    FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Payment_Method_ID) REFERENCES Payment_Method(Payment_Method_ID) ON DELETE CASCADE
+);
+
+
+-- Reviews and Ratings Table
+CREATE TABLE Reviews_Ratings (
+    Review_ID INT PRIMARY KEY IDENTITY(1,1),
+    Customer_ID INT NOT NULL,
+    Restaurant_ID INT NOT NULL,
+    Rating DECIMAL(2,1) CHECK (Rating BETWEEN 0 AND 5), -- Rating range 0 to 5
+    Comments TEXT,
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurants(Restaurant_ID) ON DELETE CASCADE
+);
+
+
+
+--------------------------------------------------------------------------
+--Insertion statements
+--------------------------------------------------------------------------
+INSERT INTO Customers (First_Name, Last_Name, Email, Address, Phone_Number, City)
+VALUES 
+('Rahul', 'Sharma', 'rahul.sharma@example.com', '123 MG Road, Bangalore', '9876543210', 'Bangalore'),
+('Priya', 'Agarwal', 'priya.agarwal@example.com', '456 Park Street, Kolkata', '9865321478', 'Kolkata'),
+('Vikram', 'Rao', 'vikram.rao@example.com', '789 Anna Salai, Chennai', '9786541230', 'Chennai'),
+('Neha', 'Patel', 'neha.patel@example.com', '101 Marine Drive, Mumbai', '9901234567', 'Mumbai'),
+('Amit', 'Verma', 'amit.verma@example.com', '202 Connaught Place, Delhi', '9812345678', 'Delhi');
+
+INSERT INTO Restaurants (Name, Cuisine, Location, Rating)
+VALUES 
+('Biryani Paradise', 'Hyderabadi Biryani', 'Hitech City, Hyderabad', 4.8),
+('Spice Garden', 'North Indian', 'Connaught Place, Delhi', 4.5),
+('Dakshin Delights', 'South Indian', 'T Nagar, Chennai', 4.7),
+('The Great Punjab', 'Punjabi', 'Bandra, Mumbai', 4.6),
+('Rajasthani Rasoi', 'Rajasthani', 'Park Street, Kolkata', 4.4);
+
+INSERT INTO Menu_Items (Restaurant_ID, Name, Price, Availability)
+VALUES 
+(1, 'Hyderabadi Chicken Biryani', 350.00, 'Available'),
+(2, 'Paneer Butter Masala', 280.00, 'Available'),
+(3, 'Masala Dosa', 120.00, 'Available'),
+(4, 'Sarson da Saag with Makki Roti', 250.00, 'Available'),
+(5, 'Dal Baati Churma', 200.00, 'Available');
+
+
+INSERT INTO Delivery_Personal (Name, Phone_Number, Vehicle_Type)
+VALUES 
+('Suresh Kumar', '9012345678', 'Bike'),
+('Rajesh Singh', '9123456789', 'Scooter'),
+('Arjun Mehta', '9234567890', 'Car'),
+('Vishal Pandey', '9345678901', 'Bike'),
+('Sunil Yadav', '9456789012', 'Scooter');
+
+
+INSERT INTO Orders (Customer_ID, Order_Date, Order_Status, Delivery_ID)
+VALUES 
+(1, '2025-03-04 12:30:00', 'Completed', 1),
+(2, '2025-03-04 13:00:00', 'Pending', 2),
+(3, '2025-03-04 13:30:00', 'Completed', 3),
+(4, '2025-03-04 14:00:00', 'Cancelled', 4),
+(5, '2025-03-04 14:30:00', 'Completed', 5);
+
+
+INSERT INTO Order_Items (Order_ID, Menu_Item_ID, Quantity)
+VALUES 
+(1, 1, 2),
+(2, 2, 1),
+(3, 3, 3),
+(4, 4, 2),
+(5, 5, 1);
+
+
+INSERT INTO Payment_Method (Payment_Method)
+VALUES 
+('Credit Card'),
+('Debit Card'),
+('UPI'),
+('Cash on Delivery'),
+('Net Banking');
+
+
+INSERT INTO Payments (Order_ID, Payment_Method_ID, Amount, Status)
+VALUES 
+(1, 1, 700.00, 'Completed'),
+(2, 2, 280.00, 'Pending'),
+(3, 3, 360.00, 'Completed'),
+(4, 4, 500.00, 'Failed'),
+(5, 5, 200.00, 'Completed');
+
+
+INSERT INTO Reviews_Ratings (Customer_ID, Restaurant_ID, Rating, Comments)
+VALUES 
+(1, 1, 4.5, 'Delicious Biryani, must try!'),
+(2, 2, 4.0, 'Paneer Butter Masala was amazing.'),
+(3, 3, 4.8, 'Masala Dosa was authentic and crispy.'),
+(4, 4, 4.6, 'Sarson da Saag was excellent.'),
+(5, 5, 4.3, 'Dal Baati Churma was flavorful.');
+
+
+--------------------------------------------------------------
+--Select Queries
+--------------------------------------------------------------
+
+-- Select all records from Customers
+SELECT * FROM Customers;
+
+-- Select all records from Restaurants
+SELECT * FROM Restaurants;
+
+-- Select all records from Menu_Items
+SELECT * FROM Menu_Items;
+
+-- Select all records from Delivery_Personal
+SELECT * FROM Delivery_Personal;
+
+-- Select all records from Orders
+SELECT * FROM Orders;
+
+-- Select all records from Order_Items
+SELECT * FROM Order_Items;
+
+-- Select all records from Payment_Method
+SELECT * FROM Payment_Method;
+
+-- Select all records from Payments
+SELECT * FROM Payments;
+
+-- Select all records from Reviews_Ratings
+SELECT * FROM Reviews_Ratings;
+
